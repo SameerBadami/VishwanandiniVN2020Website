@@ -1,1 +1,114 @@
-<p>home works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark  navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">VISHWANANDINI</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown ">
+                <a class="nav-link textUpperCase dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                  <!--Language-->
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'KANNADA'"><b>ಕ</b></span>
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'ENGLISH'"><b>E</b></span>
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'TELUGU'"><b>క</b></span>
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'TAMIL'"><b>க</b></span>
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'HINDI'"><b>अ</b></span>
+                </a>
+                <div class="dropdown-menu">
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToKannada()">Kannada</a>
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToEnglish()">English</a>
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToTelugu()">Telugu</a>
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToTamil()">Tamil</a>
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToHindi()">Hindi</a>
+                </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Profile
+            <!--<span class="visually-hidden">(current)</span>-->
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Panchanga</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Donation</a>
+        </li>
+
+      </ul>
+
+      <!--<form class="d-flex">
+        <input class="form-control me-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </form>-->
+    </div>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="row">
+			<div class="col-md-1"></div>
+            <div class="col-lg-10">
+                <!-- <h3>All Upanyasas</h3> -->
+            </div>
+        </div>
+        <br>
+    <div class="row">
+
+      <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let topics of topicsData">
+        <div class="info-box thumbnailfolders">
+          <span class="info-box-icon">
+            <img  [src]="topics.topicIconImagePath" width="89" height="90" class="image-left" />
+          </span>
+          <p style="font-size:17px;color:#095585;padding-top:5px;">
+            <b *ngIf="displayLanguage == 'KANNADA'">{{topics.tnkannada}}</b>
+            <b *ngIf="displayLanguage == 'ENGLISH'">{{topics.tnenglish}}</b>
+            <b *ngIf="displayLanguage == 'TELUGU'">{{topics.tntelugu}}</b>
+            <b *ngIf="displayLanguage == 'TAMIL'">{{topics.tntamil}}</b>
+            <b *ngIf="displayLanguage == 'HINDI'">{{topics.tnhindi}}</b>
+          </p>
+          <p style="font-size:18px;color:#095585;">
+                  <span *ngIf="topics.topicTotalPosts == 1">{{topics.topicTotalPosts}} Post</span>
+                  <span *ngIf="topics.topicTotalPosts !== 1">{{topics.topicTotalPosts}} Posts</span>
+          </p>
+          <!--<div class="info-box-content" >
+            <p style="font-size:17px;color:#095585;padding-right:-300px !important ">
+              <b *ngIf="displayLanguage == 'KANNADA'">{{topics.tnkannada}}</b>
+              <b *ngIf="displayLanguage == 'ENGLISH'">{{topics.tnenglish}}</b>
+              <b *ngIf="displayLanguage == 'TELUGU'">{{topics.tntelugu}}</b>
+              <b *ngIf="displayLanguage == 'TAMIL'">{{topics.tntamil}}</b>
+              <b *ngIf="displayLanguage == 'HINDI'">{{topics.tnhindi}}</b>
+            </p>
+          </div>-->
+        </div>
+
+      </div>
+      <!--<a href="topicsInfo.php?id=111&page=U">
+		    		<div class="col-md-4 col-sm-6 col-xs-12">
+         				 <div class="info-box thumbnailfolders">
+							<span class="info-box-icon text-left"> <img  src="" width="80" height="109"/></span>
+            				<div class="info-box-content">
+								<p style="font-size:15px; "><b>
+								ಶ್ರೀಮದ್ ರಾಮಾಯಣಮ್ 02								</b></p>
+								<p style="font-size:15px;">
+																		58 ಉಪನ್ಯಾಸಗಳು 								</p>
+            				</div>
+          				</div>
+        			</div>
+			 </a>-->
+    </div>
+		<div class="col-lg-12">
+				<hr>
+		</div>
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+			       <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <p style="text-align:center">Copyright &copy; VISHWANANDINI</p>
+                </div>
+        </div>
+    </footer>
+</div>
