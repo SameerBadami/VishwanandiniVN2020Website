@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
@@ -14,11 +15,14 @@ export class HomeComponent implements OnInit {
   public topicIconImagePathUrl: any ;
 
   constructor(
+    private router: Router,
     private http: HttpClient
   ) { }
 
   ngOnInit(): void {
      this.getImageIconPath();
+     sessionStorage.setItem('ProductName', 'Mobile');
+     sessionStorage.setItem('userLanguageSelected', 'KANNADA');
   }
 
   getImageIconPath(){
@@ -33,6 +37,8 @@ export class HomeComponent implements OnInit {
   }
 
   getAllBlogs(){
+    var ProductName = sessionStorage.getItem('ProductName');
+    console.log("local session ---"+ProductName);
     let a = this.topicIconImagePathUrl.path;
     this.http.get('http://3.109.163.108:3000/api/getAllPublishedTopicsAPI').subscribe( (resp: any) =>{
       resp.forEach(function (value) {
@@ -45,22 +51,32 @@ export class HomeComponent implements OnInit {
 
   changeToKannada(){
     this.displayLanguage = 'KANNADA';
+    sessionStorage.setItem('userLanguageSelected', 'KANNADA');
   }
 
   changeToEnglish(){
     this.displayLanguage = 'ENGLISH';
+    sessionStorage.setItem('userLanguageSelected', 'ENGLISH');
   }
 
   changeToTelugu(){
     this.displayLanguage = 'TELUGU';
+    sessionStorage.setItem('userLanguageSelected', 'TELUGU');
   }
 
   changeToTamil(){
     this.displayLanguage = 'TAMIL';
+    sessionStorage.setItem('userLanguageSelected', 'TAMIL');
   }
 
   changeToHindi(){
     this.displayLanguage = 'HINDI';
+    sessionStorage.setItem('userLanguageSelected', 'HINDI');
+  }
+
+  goToTopics(val){
+    alert("here"+val);
+    this.router.navigate(['/topics']);
   }
 
 }

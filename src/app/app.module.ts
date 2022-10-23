@@ -5,18 +5,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { TopicsComponent } from './topics/topics.component';
+import { ProfileComponent } from './profile/profile.component';
+import { DonationComponent } from './donation/donation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    TopicsComponent,
+    ProfileComponent,
+    DonationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent }
+      { path: '', component: HomeComponent },
+      { path: 'topics', component: TopicsComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'donation', component: DonationComponent }
     ])
   ],
   providers: [],
