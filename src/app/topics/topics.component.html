@@ -38,3 +38,54 @@
     </div>
   </div>
 </nav>
+<div class="container">
+  <div class="row text-center">
+    <div class="col-md-1  hero-feature"></div>
+    <div class="col-md-10">
+        <h4 style="text-align: center; color:#095585;padding-top:25px; "><b>
+          <span *ngIf="displayLanguage == 'KANNADA'">{{topicInfo.tnkannada}}</span>
+          <span *ngIf="displayLanguage == 'ENGLISH'">{{topicInfo.tnenglish}}</span>
+          <span *ngIf="displayLanguage == 'TELUGU'">{{topicInfo.tntelugu}}</span>
+          <span *ngIf="displayLanguage == 'TAMIL'">{{topicInfo.tntamil}}</span>
+          <span *ngIf="displayLanguage == 'HINDI'">{{topicInfo.tnhindi}}</span>
+        </b></h4>
+    <hr>
+    <div class="hero-feature">
+      <div *ngFor="let display of topicsPosts">
+        <div style="cursor:pointer" class="thumbnail profile">
+          <h5 align="left" style="color:#095585;"><b>
+            <span *ngIf="displayLanguage == 'KANNADA'">{{display.postKT}}</span>
+            <span *ngIf="displayLanguage == 'ENGLISH'">{{display.postET}}</span>
+            <span *ngIf="displayLanguage == 'TELUGU'">{{display.postTET}}</span>
+            <span *ngIf="displayLanguage == 'TAMIL'">{{display.postTAT}}</span>
+            <span *ngIf="displayLanguage == 'HINDI'">{{display.postHT}}</span>
+          </b></h5>
+          <p style="width:100%;overflow: auto;text-align:justify;white-space: pre-wrap;" >
+            <span *ngIf="displayLanguage == 'KANNADA'">{{display.postKSD}}</span>
+            <span *ngIf="displayLanguage == 'ENGLISH'">{{display.postESD}}</span>
+            <span *ngIf="displayLanguage == 'TELUGU'">{{display.postTESD}}</span>
+            <span *ngIf="displayLanguage == 'TAMIL'">{{display.postTASD}}</span>
+            <span *ngIf="displayLanguage == 'HINDI'">{{display.postHSD}}</span>
+          </p>
+        </div>
+        <br>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+      <hr>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+      <div class="row">
+           <div class="col-lg-1"></div>
+              <div class="col-lg-10">
+                  <p style="text-align:center">Copyright &copy; VISHWANANDINI</p>
+              </div>
+      </div>
+  </footer>
+</div>

@@ -111,19 +111,18 @@ footer {
 	}
 
 pre{
-    width:100%;
+  width:100%;
 	overflow: auto;
     /*word-wrap:break-word;
     white-space:pre-wrap;*/
 	border:none;
 	background-color:#FFFFFF;
-	 display: block;
-	 overflow-x: hidden;
-	 text-align:justify;
-    white-space: pre-wrap;
+	display: block;
+	overflow-x: hidden;
+	text-align:justify;
+  white-space: pre-wrap;
 	font-size:14px;
-
-   }
+}
 
 .thumbnail {
    border-top: 3px solid #B95835;

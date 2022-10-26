@@ -53,11 +53,11 @@
             <div class="col-lg-10">
                 <!-- <h3>All Upanyasas</h3> -->
             </div>
-        </div>
+  </div>
         <br>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let topics of topicsData">
-        <div class="info-box thumbnailfolders" (click)="goToTopics(topics.topicId)">
+        <div class="info-box thumbnailfolders" (click)="goToTopics(topics)">
           <span class="info-box-icon">
             <img  [src]="topics.topicIconImagePath" width="89" height="90" class="image-left" />
           </span>

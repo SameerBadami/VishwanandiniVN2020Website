@@ -11,6 +11,9 @@ import { map } from 'rxjs/operators';
 export class TopicsComponent implements OnInit {
 
   public displayLanguage : any = '';
+  public topicInfo: any;
+  public topicId:any;
+  public topicsPosts: any;
 
   constructor(
     private router: Router,
@@ -26,7 +29,16 @@ export class TopicsComponent implements OnInit {
   getSelectedLanguage(){
     var lang = sessionStorage.getItem('userLanguageSelected');
     this.displayLanguage = lang;
-
+    this.topicId = sessionStorage.getItem('TopicId');
+    const  newJSON  =sessionStorage.getItem('TopicInfo');
+    const newPlay = JSON.parse(newJSON)
+    this.topicInfo = newPlay;
+    if(this.topicId == null || this.topicId == undefined || this.topicId == ''){
+      this.topicId = sessionStorage.getItem('TopicId');
+      this.getSelectedLanguage();
+    } else {
+      this.getTopicsPosts();
+    }
   }
 
   changeToKannada(){
@@ -52,6 +64,13 @@ export class TopicsComponent implements OnInit {
   changeToHindi(){
     this.displayLanguage = 'HINDI';
     sessionStorage.setItem('userLanguageSelected', 'HINDI');
+  }
+
+  getTopicsPosts(){
+    //topicsPosts
+    this.http.get('http://3.109.163.108:3000/api/getAllTopicsPostWithDescription/'+this.topicId).subscribe( (resp: any) =>{
+       this.topicsPosts = resp;
+    });
   }
 
 

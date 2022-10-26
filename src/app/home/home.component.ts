@@ -38,14 +38,14 @@ export class HomeComponent implements OnInit {
 
   getAllBlogs(){
     var ProductName = sessionStorage.getItem('ProductName');
-    console.log("local session ---"+ProductName);
+    //console.log("local session ---"+ProductName);
     let a = this.topicIconImagePathUrl.path;
     this.http.get('http://3.109.163.108:3000/api/getAllPublishedTopicsAPI').subscribe( (resp: any) =>{
       resp.forEach(function (value) {
             value.topicIconImagePath = a+'/'+value.topicIconImageName;
        });
        this.topicsData = resp;
-      console.log("HERERERER---"+JSON.stringify(resp));
+      //console.log("HERERERER---"+JSON.stringify(resp));
     });
   }
 
@@ -75,7 +75,21 @@ export class HomeComponent implements OnInit {
   }
 
   goToTopics(val){
-    alert("here"+val);
+    //alert("here"+val.topicId);
+    //alert(JSON.stringify(val));
+    var info = {
+                  "tnkannada":val.tnkannada,
+                  "tnhindi":val.tnhindi,
+                  "tndevanagari":val.tndevanagari,
+                  "tntamil":val.tntamil,
+                  "tntelugu":val.tntelugu,
+                  "tnenglish":val.tnenglish
+
+    };
+    //alert(JSON.stringify(info));
+    const json = JSON.stringify(info);
+    sessionStorage.setItem('TopicInfo', json);
+    sessionStorage.setItem('TopicId', val.topicId);
     this.router.navigate(['/topics']);
   }
 
