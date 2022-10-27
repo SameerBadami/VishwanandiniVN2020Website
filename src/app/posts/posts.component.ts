@@ -3,24 +3,24 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
+
 @Component({
-  selector: 'app-topics',
-  templateUrl: './topics.component.html',
-  styleUrls: ['./topics.component.css']
+  selector: 'app-posts',
+  templateUrl: './posts.component.html',
+  styleUrls: ['./posts.component.css']
 })
-export class TopicsComponent implements OnInit {
+export class PostsComponent implements OnInit {
 
   public displayLanguage : any = '';
-  public topicInfo: any;
-  public topicId:any;
+  public postId:any;
   public topicsPosts: any;
+  public allPostCommentsDisplayData: any;
+  public audioUrl = 'http://3.109.163.108:3000/api/sendMeAudio/';
 
   constructor(
     private router: Router,
     private http: HttpClient
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
     this.getSelectedLanguage();
@@ -29,15 +29,16 @@ export class TopicsComponent implements OnInit {
   getSelectedLanguage(){
     var lang = sessionStorage.getItem('userLanguageSelected');
     this.displayLanguage = lang;
-    this.topicId = sessionStorage.getItem('TopicId');
-    const  newJSON  =sessionStorage.getItem('TopicInfo');
+    //this.postId = sessionStorage.getItem('PostID');
+    const  newJSON  =sessionStorage.getItem('PostID');
     const newPlay = JSON.parse(newJSON)
-    this.topicInfo = newPlay;
-    if(this.topicId == null || this.topicId == undefined || this.topicId == ''){
-      this.topicId = sessionStorage.getItem('TopicId');
+    this.postId = newPlay;
+    if(this.postId == null || this.postId == undefined || this.postId == ''){
+      this.postId = sessionStorage.getItem('TopicId');
       this.getSelectedLanguage();
     } else {
-      this.getTopicsPosts();
+      this.getIndividualPosts();
+      this.getAllIndividualPostsComments();
     }
   }
 
@@ -66,18 +67,18 @@ export class TopicsComponent implements OnInit {
     sessionStorage.setItem('userLanguageSelected', 'HINDI');
   }
 
-  getTopicsPosts(){
-    //topicsPosts
-    this.http.get('http://3.109.163.108:3000/api/getAllTopicsPostWithDescription/'+this.topicId).subscribe( (resp: any) =>{
+
+  getIndividualPosts(){
+    this.http.get('http://3.109.163.108:3000/api/getIndividualPostDetailsAPI/'+this.postId).subscribe( (resp: any) =>{
        this.topicsPosts = resp;
+       this.topicsPosts[0].postAudioName = this.audioUrl+this.topicsPosts[0].postAudioName;
     });
   }
 
-  goToPosts(val){
-    const json = JSON.stringify(val.postId);
-    sessionStorage.setItem('PostID', json);
-    this.router.navigate(['/posts']);
+  getAllIndividualPostsComments(){
+    this.http.get('http://3.109.163.108:3000/api/getAllSpecificPostComments/'+this.postId).subscribe( (resp: any) =>{
+       this.allPostCommentsDisplayData = resp;
+    });
   }
-
 
 }

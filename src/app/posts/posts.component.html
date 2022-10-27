@@ -1,0 +1,147 @@
+<nav class="navbar navbar-expand-lg navbar-dark  navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">VISHWANANDINI</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown ">
+                <a class="nav-link textUpperCase dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                  <!--Language-->
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'KANNADA'"><b>ಕ</b></span>
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'ENGLISH'"><b>E</b></span>
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'TELUGU'"><b>క</b></span>
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'TAMIL'"><b>க</b></span>
+                  <span style="color:#FFFF00;" *ngIf="displayLanguage == 'HINDI'"><b>अ</b></span>
+                </a>
+                <div class="dropdown-menu">
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToKannada()">Kannada</a>
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToEnglish()">English</a>
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToTelugu()">Telugu</a>
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToTamil()">Tamil</a>
+                  <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToHindi()">Hindi</a>
+                </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Profile
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Panchanga</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Donation</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+      <br>
+      <div class="hero-feature">
+        <div class="thumbnail profile">
+          <h5 align="left" style="color:#095585;"><b>
+            <span *ngIf="displayLanguage == 'KANNADA'">{{topicsPosts[0].postKT}}</span>
+            <span *ngIf="displayLanguage == 'ENGLISH'">{{topicsPosts[0].postET}}</span>
+            <span *ngIf="displayLanguage == 'TELUGU'">{{topicsPosts[0].postTET}}</span>
+            <span *ngIf="displayLanguage == 'TAMIL'">{{topicsPosts[0].postTAT}}</span>
+            <span *ngIf="displayLanguage == 'HINDI'">{{topicsPosts[0].postHT}}</span>
+          </b></h5>
+          <br>
+          <p *ngIf="displayLanguage == 'KANNADA'">{{topicsPosts[0].postKD}}</p>
+          <p *ngIf="displayLanguage == 'ENGLISH'">{{topicsPosts[0].postKD}}</p>
+          <p *ngIf="displayLanguage == 'TELUGU'">{{topicsPosts[0].postTED}}</p>
+          <p *ngIf="displayLanguage == 'TAMIL'">{{topicsPosts[0].postTAD}}</p>
+          <p *ngIf="displayLanguage == 'HINDI'">{{topicsPosts[0].postED}}</p>
+          <br>
+          <div *ngIf="topicsPosts[0].postPdfStatus == 'true'">
+             <span class="badge rounded-pill bg-warning" style="font-size:16px">PDF</span>
+          </div>
+          <div *ngIf="topicsPosts[0].postAudioStatus == 'true'">
+            <br>
+            <span class="badge rounded-pill bg-warning" style="font-size:16px">Audio</span>
+            <br><br>
+            <div style="margin-left: 25%;">
+              <audio controls style="width: 70%;">
+                  <source [src]='topicsPosts[0].postAudioName' type="audio/mp3">
+                  <source [src]='topicsPosts[0].postAudioName' type="audio/ogg">
+              </audio>
+            </div>
+          </div>
+          <div *ngIf="topicsPosts[0].postVideoStatus == 'true'">
+            <br>
+            <span class="badge rounded-pill bg-warning" style="font-size:16px">VIDEO</span>
+          </div>
+        </div>
+        <!--{{topicsPosts | json}}-->
+      </div>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-md-1"></div>
+				<div class="col-md-10">
+            <h4 style="text-align:center;text-decoration: underline; ">Comments</h4>(You can only view comments here. If you want to write a comment please <a href="https://play.google.com/store/apps/details?id=com.v2.vishwanandini&hl=en" target="_blank">download</a> the app.)
+            <ul *ngIf="allPostCommentsDisplayData.length > 0" class="timeline">
+              <li *ngFor="let comments of allPostCommentsDisplayData">
+                <div class="timeline-panel myinverted">
+                  <div class="timeline-heading">
+                    <h4 class="timeline-title" style="font-size:15px !important; text-align:left ">
+                      <b style="color:#3b5998; ">
+													{{comments.u_Name}}
+                      </b>,{{comments.u_City}}
+                    </h4>
+										<p style="text-align:left; font-size:12px ">
+                        {{comments.c_DateOfComment | date: 'dd/MM/yyyy'}}
+                    </p>
+                    <div class="timeline-body">
+                      <p style="text-align:left ">
+                        {{comments.c_Comment}}
+                      </p>
+                      <div *ngIf="comments.c_CommentReplyStatus == 'YES'"  style="text-align:left; padding-left:15px;">
+                        <br>
+                        <div style="background-color:#F8EDCF; padding-top:2px; padding-left:10px;padding-bottom:3px;">
+                          <p style="font-size:16px !important;color:#3b5998; "><b>Vishnudasa Nagendracharya</b></p>
+                          <p style="text-align:left;background-color:#F8EDCF; ">
+                            {{comments.c_CommentReply}}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <ul *ngIf="allPostCommentsDisplayData.length == 0" class="timeline">
+              <li>
+                <div class="timeline-panel myinverted">
+                  <div class="timeline-heading">
+                    <div class="timeline-body">
+                      <p style="text-align:center;font-size:18px">No Comments</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+        </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+      <hr>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+      <div class="row">
+           <div class="col-lg-1"></div>
+              <div class="col-lg-10">
+                  <p style="text-align:center">Copyright &copy; VISHWANANDINI</p>
+              </div>
+      </div>
+  </footer>
+</div>

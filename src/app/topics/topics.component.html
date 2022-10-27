@@ -52,7 +52,7 @@
     <hr>
     <div class="hero-feature">
       <div *ngFor="let display of topicsPosts">
-        <div style="cursor:pointer" class="thumbnail profile">
+        <div style="cursor:pointer" class="thumbnail profile" (click)="goToPosts(display)"> 
           <h5 align="left" style="color:#095585;"><b>
             <span *ngIf="displayLanguage == 'KANNADA'">{{display.postKT}}</span>
             <span *ngIf="displayLanguage == 'ENGLISH'">{{display.postET}}</span>
