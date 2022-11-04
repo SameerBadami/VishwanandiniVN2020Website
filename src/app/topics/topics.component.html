@@ -10,6 +10,7 @@
         <li class="nav-item dropdown ">
                 <a class="nav-link textUpperCase dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                   <!--Language-->
+                  <span style="color:#FFFF00;" >Language</span>&nbsp;
                   <span style="color:#FFFF00;" *ngIf="displayLanguage == 'KANNADA'"><b>ಕ</b></span>
                   <span style="color:#FFFF00;" *ngIf="displayLanguage == 'ENGLISH'"><b>E</b></span>
                   <span style="color:#FFFF00;" *ngIf="displayLanguage == 'TELUGU'"><b>క</b></span>
@@ -52,13 +53,13 @@
     <hr>
     <div class="hero-feature">
       <div *ngFor="let display of topicsPosts">
-        <div style="cursor:pointer" class="thumbnail profile" (click)="goToPosts(display)"> 
+        <div style="cursor:pointer" class="thumbnail profile" (click)="goToPosts(display)">
           <h5 align="left" style="color:#095585;"><b>
-            <span *ngIf="displayLanguage == 'KANNADA'">{{display.postKT}}</span>
-            <span *ngIf="displayLanguage == 'ENGLISH'">{{display.postET}}</span>
-            <span *ngIf="displayLanguage == 'TELUGU'">{{display.postTET}}</span>
-            <span *ngIf="displayLanguage == 'TAMIL'">{{display.postTAT}}</span>
-            <span *ngIf="displayLanguage == 'HINDI'">{{display.postHT}}</span>
+            <span *ngIf="displayLanguage == 'KANNADA'">{{display.postTopicCounts}}.&nbsp;&nbsp;{{display.postKT}}</span>
+            <span *ngIf="displayLanguage == 'ENGLISH'">{{display.postTopicCounts}}.&nbsp;&nbsp;{{display.postET}}</span>
+            <span *ngIf="displayLanguage == 'TELUGU'">{{display.postTopicCounts}}.&nbsp;&nbsp;{{display.postTET}}</span>
+            <span *ngIf="displayLanguage == 'TAMIL'">{{display.postTopicCounts}}.&nbsp;&nbsp;{{display.postTAT}}</span>
+            <span *ngIf="displayLanguage == 'HINDI'">{{display.postTopicCounts}}.&nbsp;&nbsp;{{display.postHT}}</span>
           </b></h5>
           <p style="width:100%;overflow: auto;text-align:justify;white-space: pre-wrap;" >
             <span *ngIf="displayLanguage == 'KANNADA'">{{display.postKSD}}</span>
@@ -67,6 +68,9 @@
             <span *ngIf="displayLanguage == 'TAMIL'">{{display.postTASD}}</span>
             <span *ngIf="displayLanguage == 'HINDI'">{{display.postHSD}}</span>
           </p>
+          <div class="card-footer text-muted">
+            {{display.postViews}} Views
+          </div>
         </div>
         <br>
       </div>

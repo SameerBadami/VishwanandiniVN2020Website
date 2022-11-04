@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewportScroller } from "@angular/common";
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
 
 
@@ -16,10 +18,13 @@ export class PostsComponent implements OnInit {
   public topicsPosts: any;
   public allPostCommentsDisplayData: any;
   public audioUrl = 'http://3.109.163.108:3000/api/sendMeAudio/';
+  public pdfUrl = 'http://3.109.163.108:3000/api/sendMePdf/'
 
   constructor(
+    private scroller: ViewportScroller,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +42,7 @@ export class PostsComponent implements OnInit {
       this.postId = sessionStorage.getItem('TopicId');
       this.getSelectedLanguage();
     } else {
+      this.updatePostViews();
       this.getIndividualPosts();
       this.getAllIndividualPostsComments();
     }
@@ -67,11 +73,28 @@ export class PostsComponent implements OnInit {
     sessionStorage.setItem('userLanguageSelected', 'HINDI');
   }
 
+  goToCommentsScroll(){
+    this.scroller.scrollToAnchor("targetRed");
+  }
+
+  goToAudioScroll(){
+    this.scroller.scrollToAnchor("audio");
+  }
+
+  goToVideoScroll(){
+    this.scroller.scrollToAnchor("video");
+  }
+
+  goToPDFScroll(){
+    this.scroller.scrollToAnchor("pdf");
+  }
+
 
   getIndividualPosts(){
     this.http.get('http://3.109.163.108:3000/api/getIndividualPostDetailsAPI/'+this.postId).subscribe( (resp: any) =>{
        this.topicsPosts = resp;
        this.topicsPosts[0].postAudioName = this.audioUrl+this.topicsPosts[0].postAudioName;
+       this.topicsPosts[0].postPdfName = this.pdfUrl+this.topicsPosts[0].postPdfName;
     });
   }
 
@@ -79,6 +102,17 @@ export class PostsComponent implements OnInit {
     this.http.get('http://3.109.163.108:3000/api/getAllSpecificPostComments/'+this.postId).subscribe( (resp: any) =>{
        this.allPostCommentsDisplayData = resp;
     });
+  }
+
+  updatePostViews(){
+    var headers = new HttpHeaders();
+    headers.append('content-Type', 'application/json');
+    this.http.put('http://3.109.163.108:3000/api/updatePostViews/'+this.postId, {headers: headers}).subscribe( (resp: any) =>{
+    });
+  }
+
+  getTrustedUrl(value){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(value);
   }
 
 }

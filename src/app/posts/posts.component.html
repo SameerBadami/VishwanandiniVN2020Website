@@ -10,6 +10,7 @@
         <li class="nav-item dropdown ">
                 <a class="nav-link textUpperCase dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                   <!--Language-->
+                  <span style="color:#FFFF00;" >Language</span>&nbsp;
                   <span style="color:#FFFF00;" *ngIf="displayLanguage == 'KANNADA'"><b>ಕ</b></span>
                   <span style="color:#FFFF00;" *ngIf="displayLanguage == 'ENGLISH'"><b>E</b></span>
                   <span style="color:#FFFF00;" *ngIf="displayLanguage == 'TELUGU'"><b>క</b></span>
@@ -25,7 +26,7 @@
                 </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Profile
+          <a class="nav-link" href="#">Profile
           </a>
         </li>
         <li class="nav-item">
@@ -41,48 +42,127 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-1"></div>
-    <div class="col-lg-10">
+    <div class="col-lg-10" *ngFor="let postsdata of topicsPosts">
       <br>
       <div class="hero-feature">
         <div class="thumbnail profile">
           <h5 align="left" style="color:#095585;"><b>
-            <span *ngIf="displayLanguage == 'KANNADA'">{{topicsPosts[0].postKT}}</span>
-            <span *ngIf="displayLanguage == 'ENGLISH'">{{topicsPosts[0].postET}}</span>
-            <span *ngIf="displayLanguage == 'TELUGU'">{{topicsPosts[0].postTET}}</span>
-            <span *ngIf="displayLanguage == 'TAMIL'">{{topicsPosts[0].postTAT}}</span>
-            <span *ngIf="displayLanguage == 'HINDI'">{{topicsPosts[0].postHT}}</span>
+            <span *ngIf="displayLanguage == 'KANNADA'">{{postsdata.postTopicCounts}}.&nbsp;&nbsp;{{postsdata.postKT}}</span>
+            <span *ngIf="displayLanguage == 'ENGLISH'">{{postsdata.postTopicCounts}}.&nbsp;&nbsp;{{postsdata.postET}}</span>
+            <span *ngIf="displayLanguage == 'TELUGU'">{{postsdata.postTopicCounts}}.&nbsp;&nbsp;{{postsdata.postTET}}</span>
+            <span *ngIf="displayLanguage == 'TAMIL'">{{postsdata.postTopicCounts}}.&nbsp;&nbsp;{{postsdata.postTAT}}</span>
+            <span *ngIf="displayLanguage == 'HINDI'">{{postsdata.postTopicCounts}}.&nbsp;&nbsp;{{postsdata.postHT}}</span>
           </b></h5>
+
           <br>
-          <p *ngIf="displayLanguage == 'KANNADA'">{{topicsPosts[0].postKD}}</p>
-          <p *ngIf="displayLanguage == 'ENGLISH'">{{topicsPosts[0].postKD}}</p>
-          <p *ngIf="displayLanguage == 'TELUGU'">{{topicsPosts[0].postTED}}</p>
-          <p *ngIf="displayLanguage == 'TAMIL'">{{topicsPosts[0].postTAD}}</p>
-          <p *ngIf="displayLanguage == 'HINDI'">{{topicsPosts[0].postED}}</p>
+          <pre style="font-weight:bold" *ngIf="displayLanguage == 'KANNADA'">{{postsdata.postKD}}</pre>
+          <pre style="font-weight:bold" *ngIf="displayLanguage == 'ENGLISH'">{{postsdata.postED}}</pre>
+          <pre style="font-weight:bold" *ngIf="displayLanguage == 'TELUGU'">{{postsdata.postTED}}</pre>
+          <pre style="font-weight:bold" *ngIf="displayLanguage == 'TAMIL'">{{postsdata.postTAD}}</pre>
+          <pre style="font-weight:bold" *ngIf="displayLanguage == 'HINDI'">{{postsdata.postED}}</pre>
           <br>
-          <div *ngIf="topicsPosts[0].postPdfStatus == 'true'">
-             <span class="badge rounded-pill bg-warning" style="font-size:16px">PDF</span>
+          <div class="row">
+            <div class="col-lg-2"></div>
+            <div *ngIf="postsdata.postAudioStatus == 'true'" style="text-align:center !important;" class="col-md-2">
+              <button type="button" class="btn btn-primary" (click)="goToAudioScroll()">Audio</button>
+            </div>
+            <div *ngIf="postsdata.postVideoStatus == 'true'" style="text-align:center !important;" class="col-md-2">
+              <button type="button" class="btn btn-primary" (click)="goToVideoScroll()">Video</button>
+            </div>
+            <div *ngIf="postsdata.postPdfStatus == 'true'" style="text-align:center !important;" class="col-md-2">
+              <button type="button" class="btn btn-primary" (click)="goToPDFScroll()">PDF</button>
+            </div>
+            <div style="text-align:center !important;" class="col-md-2">
+              <button type="button" class="btn btn-primary" (click)="goToCommentsScroll()">Comments</button>
+            </div>
+            <div class="col-lg-2"></div>
           </div>
-          <div *ngIf="topicsPosts[0].postAudioStatus == 'true'">
-            <br>
-            <span class="badge rounded-pill bg-warning" style="font-size:16px">Audio</span>
-            <br><br>
-            <div style="margin-left: 25%;">
-              <audio controls style="width: 70%;">
-                  <source [src]='topicsPosts[0].postAudioName' type="audio/mp3">
-                  <source [src]='topicsPosts[0].postAudioName' type="audio/ogg">
-              </audio>
+
+          <!--Audio display starts here-->
+          <div id="audio">
+            <div *ngIf="postsdata.postAudioStatus == 'true'">
+              <div style="margin-left: 25%;">
+                <br>
+                <!--<span class="badge rounded-pill bg-warning" style="font-size:16px">Audio</span>-->
+                <br><br>
+                <audio controls style="width: 70%;">
+                    <source [src]='postsdata.postAudioName' type="audio/mp3">
+                    <source [src]='postsdata.postAudioName' type="audio/ogg">
+                </audio>
+              </div>
+              <br>
+              <!--Audio Titles -->
+              <div style="margin-left: 25%;">
+                <div *ngFor="let audioTit of topicsPosts">
+                  <div style="padding-bottom:10px;color:#095585; font-weight:bold" *ngFor="let data of audioTit.audioTitles">
+                    <span  *ngIf="displayLanguage == 'KANNADA'">{{data.audioPlayTimeMinute}}:{{data.audioPlayTimeSeconds}}&nbsp; {{data.audioTitle}}</span>
+                    <span *ngIf="displayLanguage == 'ENGLISH'">{{data.audioPlayTimeMinute}}:{{data.audioPlayTimeSeconds}}&nbsp; {{data.audioTitleEnglish}}</span>
+                    <span *ngIf="displayLanguage == 'TELUGU'">{{data.audioPlayTimeMinute}}:{{data.audioPlayTimeSeconds}}&nbsp; {{data.audioTitleTelugu}}</span>
+                    <span *ngIf="displayLanguage == 'TAMIL'">{{data.audioPlayTimeMinute}}:{{data.audioPlayTimeSeconds}}&nbsp; {{data.audioTitleTamil}}</span>
+                    <span *ngIf="displayLanguage == 'HINDI'">{{data.audioPlayTimeMinute}}:{{data.audioPlayTimeSeconds}}&nbsp; {{data.audioTitleHindi}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!--<div style="margin-left: 25%;">
+                {{topicsPosts | json}}
+              </div>-->
+
             </div>
           </div>
-          <div *ngIf="topicsPosts[0].postVideoStatus == 'true'">
-            <br>
-            <span class="badge rounded-pill bg-warning" style="font-size:16px">VIDEO</span>
+          <hr>
+          <!--Audio display ends here-->
+          <!--Video display starts here-->
+          <div id="video">
+            <div *ngIf="postsdata.postVideoStatus == 'true'">
+              <div style="margin-left: 0%;">
+                <br>
+                <!--<span class="badge rounded-pill bg-warning" style="font-size:16px">VIDEO</span>
+                <br>-->
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" style="border: 5px solid #095585;"
+                    width="576"
+                    height="324"
+                    [src]="getTrustedUrl(postsdata.postVideoPath)"
+                    frameborder="0"
+                    allowfullscreen>
+                  </iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <!--Video display ends here-->
+          <!--PDf display start here-->
+          <div id="pdf">
+            <div *ngIf="postsdata.postPdfStatus == 'true'">
+               <!--<span class="badge rounded-pill bg-warning" style="font-size:16px">PDF</span>-->
+               <div style="margin-left: 0%;">
+                 <div class="embed-responsive embed-responsive-16by9">
+                   <iframe  style="border: 5px solid white;"
+                     width="576"
+                     height="100%"
+                     [src]="getTrustedUrl(postsdata.postPdfName)"
+                     frameborder="0"
+                     allowfullscreen>
+                   </iframe>
+                 </div>
+               </div>
+            </div>
+          </div>
+          <!--pdf display ends here-->
+          <hr>
+          <div style="text-align:center" class="card-footer text-muted">
+            {{postsdata.postViews}} Views
           </div>
         </div>
         <!--{{topicsPosts | json}}-->
+
       </div>
     </div>
   </div>
-  <div class="row text-center">
+  <!--Comments-->
+  <div id="targetRed" class="row text-center">
     <div class="col-md-1"></div>
 				<div class="col-md-10">
             <h4 style="text-align:center;text-decoration: underline; ">Comments</h4>(You can only view comments here. If you want to write a comment please <a href="https://play.google.com/store/apps/details?id=com.v2.vishwanandini&hl=en" target="_blank">download</a> the app.)
