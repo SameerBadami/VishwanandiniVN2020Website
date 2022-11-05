@@ -148,6 +148,11 @@ pre{
   border-color: #095585;
  }
 
+ .btn.btn-primary[disabled] {
+    background-color: #095585;
+    border-color: #095585;
+ }
+
 .btn
 {
   background-color: #095585;

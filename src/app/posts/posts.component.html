@@ -63,7 +63,7 @@
           <br>
           <div class="row">
             <div class="col-lg-2"></div>
-            <div *ngIf="postsdata.postAudioStatus == 'true'" style="text-align:center !important;" class="col-md-2">
+            <!--<div *ngIf="postsdata.postAudioStatus == 'true'" style="text-align:center !important;" class="col-md-2">
               <button type="button" class="btn btn-primary" (click)="goToAudioScroll()">Audio</button>
             </div>
             <div *ngIf="postsdata.postVideoStatus == 'true'" style="text-align:center !important;" class="col-md-2">
@@ -74,25 +74,36 @@
             </div>
             <div style="text-align:center !important;" class="col-md-2">
               <button type="button" class="btn btn-primary" (click)="goToCommentsScroll()">Comments</button>
+            </div>-->
+            <div style="text-align:center !important;" class="col-lg-2 col-sm-6 col-xs-6 mt-4">
+              <button type="button" [disabled]="postsdata.postAudioStatus == 'false'" class="btn btn-primary" (click)="goToAudioScroll()">Audio</button>
+            </div>
+            <div style="text-align:center !important;" class="col-lg-2 col-sm-6 col-xs-6 mt-4">
+              <button type="button" [disabled]="postsdata.postVideoStatus == 'false'" class="btn btn-primary" (click)="goToVideoScroll()">Video</button>
+            </div>
+            <div style="text-align:center !important;" class="col-lg-2 col-sm-6  col-xs-6 mt-4">
+              <button type="button" [disabled]="postsdata.postPdfStatus == 'false'" class="btn btn-primary" (click)="goToPDFScroll()">PDF</button>
+            </div>
+            <div style="text-align:center !important;" class="col-lg-2 col-sm-6 col-xs-6 mt-4">
+              <button type="button" class="btn btn-primary" (click)="goToCommentsScroll()">Comments</button>
             </div>
             <div class="col-lg-2"></div>
           </div>
-
           <!--Audio display starts here-->
           <div id="audio">
             <div *ngIf="postsdata.postAudioStatus == 'true'">
-              <div style="margin-left: 25%;">
+              <div style="margin-left: 5%;">
                 <br>
                 <!--<span class="badge rounded-pill bg-warning" style="font-size:16px">Audio</span>-->
                 <br><br>
-                <audio controls style="width: 70%;">
+                <audio controls style="width: 95%;">
                     <source [src]='postsdata.postAudioName' type="audio/mp3">
                     <source [src]='postsdata.postAudioName' type="audio/ogg">
                 </audio>
               </div>
               <br>
               <!--Audio Titles -->
-              <div style="margin-left: 25%;">
+              <div style="margin-left: 0%;">
                 <div *ngFor="let audioTit of topicsPosts">
                   <div style="padding-bottom:10px;color:#095585; font-weight:bold" *ngFor="let data of audioTit.audioTitles">
                     <span  *ngIf="displayLanguage == 'KANNADA'">{{data.audioPlayTimeMinute}}:{{data.audioPlayTimeSeconds}}&nbsp; {{data.audioTitle}}</span>
@@ -110,7 +121,7 @@
 
             </div>
           </div>
-          <hr>
+          <hr *ngIf="postsdata.postVideoStatus == 'true'">
           <!--Audio display ends here-->
           <!--Video display starts here-->
           <div id="video">
@@ -131,7 +142,7 @@
               </div>
             </div>
           </div>
-          <hr>
+          <hr *ngIf="postsdata.postPdfStatus == 'true'">
           <!--Video display ends here-->
           <!--PDf display start here-->
           <div id="pdf">
@@ -175,9 +186,9 @@
 													{{comments.u_Name}}
                       </b>,{{comments.u_City}}
                     </h4>
-										<p style="text-align:left; font-size:12px ">
+										<!--<p style="text-align:left; font-size:12px ">
                         {{comments.c_DateOfComment | date: 'dd/MM/yyyy'}}
-                    </p>
+                    </p>-->
                     <div class="timeline-body">
                       <p style="text-align:left ">
                         {{comments.c_Comment}}
@@ -225,3 +236,4 @@
       </div>
   </footer>
 </div>
+<ngx-ui-loader></ngx-ui-loader>

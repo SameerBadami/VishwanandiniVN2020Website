@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private ngxLoader: NgxUiLoaderService
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class HomeComponent implements OnInit {
   }
 
   getAllBlogs(){
+    this.ngxLoader.start();
     var ProductName = sessionStorage.getItem('ProductName');
     //console.log("local session ---"+ProductName);
     let a = this.topicIconImagePathUrl.path;
@@ -45,6 +48,7 @@ export class HomeComponent implements OnInit {
             value.topicIconImagePath = a+'/'+value.topicIconImageName;
        });
        this.topicsData = resp;
+       this.ngxLoader.stop();
       //console.log("HERERERER---"+JSON.stringify(resp));
     });
   }

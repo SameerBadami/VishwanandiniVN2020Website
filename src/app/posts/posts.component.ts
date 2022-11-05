@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class PostsComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
+    private ngxLoader: NgxUiLoaderService
   ) { }
 
   ngOnInit(): void {
@@ -39,8 +41,9 @@ export class PostsComponent implements OnInit {
     const newPlay = JSON.parse(newJSON)
     this.postId = newPlay;
     if(this.postId == null || this.postId == undefined || this.postId == ''){
-      this.postId = sessionStorage.getItem('TopicId');
-      this.getSelectedLanguage();
+      //this.postId = sessionStorage.getItem('TopicId');
+      //this.getSelectedLanguage();
+      this.router.navigate(['/']);
     } else {
       this.updatePostViews();
       this.getIndividualPosts();
@@ -91,10 +94,12 @@ export class PostsComponent implements OnInit {
 
 
   getIndividualPosts(){
+    this.ngxLoader.start();
     this.http.get('http://3.109.163.108:3000/api/getIndividualPostDetailsAPI/'+this.postId).subscribe( (resp: any) =>{
        this.topicsPosts = resp;
        this.topicsPosts[0].postAudioName = this.audioUrl+this.topicsPosts[0].postAudioName;
        this.topicsPosts[0].postPdfName = this.pdfUrl+this.topicsPosts[0].postPdfName;
+       this.ngxLoader.stop();
     });
   }
 

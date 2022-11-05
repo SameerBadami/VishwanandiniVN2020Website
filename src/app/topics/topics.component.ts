@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-topics',
@@ -17,7 +18,8 @@ export class TopicsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private ngxLoader: NgxUiLoaderService
   ) {
 
   }
@@ -34,8 +36,9 @@ export class TopicsComponent implements OnInit {
     const newPlay = JSON.parse(newJSON)
     this.topicInfo = newPlay;
     if(this.topicId == null || this.topicId == undefined || this.topicId == ''){
-      this.topicId = sessionStorage.getItem('TopicId');
-      this.getSelectedLanguage();
+      //this.topicId = sessionStorage.getItem('TopicId');
+      //this.getSelectedLanguage();
+      this.router.navigate(['/']);
     } else {
       this.getTopicsPosts();
     }
@@ -68,8 +71,10 @@ export class TopicsComponent implements OnInit {
 
   getTopicsPosts(){
     //topicsPosts
+    this.ngxLoader.start();
     this.http.get('http://3.109.163.108:3000/api/getAllTopicsPostWithDescription/'+this.topicId).subscribe( (resp: any) =>{
        this.topicsPosts = resp;
+       this.ngxLoader.stop();
     });
   }
 
