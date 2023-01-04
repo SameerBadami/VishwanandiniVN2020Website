@@ -30,7 +30,20 @@ export class TopicsComponent implements OnInit {
 
   getSelectedLanguage(){
     var lang = sessionStorage.getItem('userLanguageSelected');
-    this.displayLanguage = lang;
+    //this.displayLanguage = lang;
+    if(lang == 'KANNADA'){
+      this.displayLanguage = 'KANNADA';
+    } else if(lang == 'ENGLISH'){
+      this.displayLanguage = 'ENGLISH';
+    } else if(lang == 'TELUGU'){
+      this.displayLanguage = 'TELUGU';
+    } else if(lang == 'TAMIL'){
+      this.displayLanguage = 'TAMIL';
+    } else if(lang == 'HINDI'){
+      this.displayLanguage = 'HINDI';
+    } else {
+      this.displayLanguage = 'KANNADA';
+    }
     this.topicId = sessionStorage.getItem('TopicId');
     const  newJSON  =sessionStorage.getItem('TopicInfo');
     const newPlay = JSON.parse(newJSON)
@@ -72,7 +85,7 @@ export class TopicsComponent implements OnInit {
   getTopicsPosts(){
     //topicsPosts
     this.ngxLoader.start();
-    this.http.get('http://3.109.163.108:3000/api/getAllTopicsPostWithDescription/'+this.topicId).subscribe( (resp: any) =>{
+    this.http.get('https://www.vishwanandini.com/api/getAllTopicsPostWithDescription/'+this.topicId).subscribe( (resp: any) =>{
        this.topicsPosts = resp;
        this.ngxLoader.stop();
     });

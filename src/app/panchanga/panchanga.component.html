@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-lg navbar-dark  navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">VISHWANANDINI</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown ">
+          <a class="nav-link textUpperCase dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <span style="color:#FFFF00;" >Language</span>&nbsp;
+            <span style="color:#FFFF00;" *ngIf="displayLanguage == 'KANNADA'"><b>ಕ</b></span>
+            <span style="color:#FFFF00;" *ngIf="displayLanguage == 'ENGLISH'"><b>E</b></span>
+            <span style="color:#FFFF00;" *ngIf="displayLanguage == 'TELUGU'"><b>క</b></span>
+            <span style="color:#FFFF00;" *ngIf="displayLanguage == 'TAMIL'"><b>க</b></span>
+            <span style="color:#FFFF00;" *ngIf="displayLanguage == 'HINDI'"><b>अ</b></span>
+          </a>
+          <div class="dropdown-menu">
+            <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToKannada()">Kannada</a>
+            <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToEnglish()">English</a>
+            <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToTelugu()">Telugu</a>
+            <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToTamil()">Tamil</a>
+            <a style="cursor: pointer;" class="dropdown-item textUpperCase" (click)="changeToHindi()">Hindi</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown ">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/profile">Profile
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/panchanga">Panchanga</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/donation">Donation</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <br><br>
+  <div class="row text-center">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="hero-feature ">
+        <div class="profile">
+          <h5 style="text-align:center "><b>Panchanga</b></h5>
+          <hr>
+          <div class="row">
+            <div class="col-md-12" style="text-align:left; ">
+              <div *ngFor="let panchanga of panchangaData">
+                <span style="font-size:17px;color:#095585;" class="info-box-text">
+                  <b *ngIf="displayLanguage == 'KANNADA'"><pre>{{panchanga.panchangaKannada}}</pre></b>
+                  <b *ngIf="displayLanguage == 'ENGLISH'"><pre>{{panchanga.panchangaEnglish}}</pre></b>
+                  <b *ngIf="displayLanguage == 'TELUGU'"><pre>{{panchanga.panchangaTelugu}}</pre></b>
+                  <b *ngIf="displayLanguage == 'TAMIL'"><pre>{{panchanga.panchangaTamil}}</pre></b>
+                  <b *ngIf="displayLanguage == 'HINDI'"><pre>{{panchanga.panchangaHindi}}</pre></b>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+      <hr>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+      <div class="row">
+           <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                      <p style="text-align:center">Copyright &copy; VISHWANANDINI</p>
+            </div>
+            <div class="col-lg-1"></div>
+      </div>
+  </footer>
+</div>
+<ngx-ui-loader></ngx-ui-loader>

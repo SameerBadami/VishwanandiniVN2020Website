@@ -12,6 +12,7 @@ import { DonationComponent } from './donation/donation.component';
 import { PostsComponent } from './posts/posts.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { PanchangaComponent } from './panchanga/panchanga.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     TopicsComponent,
     ProfileComponent,
     DonationComponent,
-    PostsComponent
+    PostsComponent,
+    PanchangaComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
       { path: 'topics', component: TopicsComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'donation', component: DonationComponent },
-      { path: 'posts', component: PostsComponent }
+      { path: 'posts', component: PostsComponent },
+      { path: 'panchanga', component: PanchangaComponent }
     ])
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}],

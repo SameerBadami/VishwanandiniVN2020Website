@@ -18,8 +18,10 @@ export class PostsComponent implements OnInit {
   public postId:any;
   public topicsPosts: any;
   public allPostCommentsDisplayData: any;
-  public audioUrl = 'http://3.109.163.108:3000/api/sendMeAudio/';
-  public pdfUrl = 'http://3.109.163.108:3000/api/sendMePdf/'
+  //public audioUrl = 'http://3.109.163.108:3000/api/sendMeAudio/';
+  //public pdfUrl = 'http://3.109.163.108:3000/api/sendMePdf/'
+  public audioUrl = 'https://www.vishwanandini.com/api/sendMeAudio/';
+  public pdfUrl = 'https://www.vishwanandini.com/api/sendMePdf/'
 
   constructor(
     private scroller: ViewportScroller,
@@ -35,7 +37,20 @@ export class PostsComponent implements OnInit {
 
   getSelectedLanguage(){
     var lang = sessionStorage.getItem('userLanguageSelected');
-    this.displayLanguage = lang;
+    //this.displayLanguage = lang;
+    if(lang == 'KANNADA'){
+      this.displayLanguage = 'KANNADA';
+    } else if(lang == 'ENGLISH'){
+      this.displayLanguage = 'ENGLISH';
+    } else if(lang == 'TELUGU'){
+      this.displayLanguage = 'TELUGU';
+    } else if(lang == 'TAMIL'){
+      this.displayLanguage = 'TAMIL';
+    } else if(lang == 'HINDI'){
+      this.displayLanguage = 'HINDI';
+    } else {
+      this.displayLanguage = 'KANNADA';
+    }
     //this.postId = sessionStorage.getItem('PostID');
     const  newJSON  =sessionStorage.getItem('PostID');
     const newPlay = JSON.parse(newJSON)
@@ -95,7 +110,7 @@ export class PostsComponent implements OnInit {
 
   getIndividualPosts(){
     this.ngxLoader.start();
-    this.http.get('http://3.109.163.108:3000/api/getIndividualPostDetailsAPI/'+this.postId).subscribe( (resp: any) =>{
+    this.http.get('https://www.vishwanandini.com/api/getIndividualPostDetailsAPI/'+this.postId).subscribe( (resp: any) =>{
        this.topicsPosts = resp;
        this.topicsPosts[0].postAudioName = this.audioUrl+this.topicsPosts[0].postAudioName;
        this.topicsPosts[0].postPdfName = this.pdfUrl+this.topicsPosts[0].postPdfName;
@@ -104,7 +119,7 @@ export class PostsComponent implements OnInit {
   }
 
   getAllIndividualPostsComments(){
-    this.http.get('http://3.109.163.108:3000/api/getAllSpecificPostComments/'+this.postId).subscribe( (resp: any) =>{
+    this.http.get('https://www.vishwanandini.com/api/getAllSpecificPostComments/'+this.postId).subscribe( (resp: any) =>{
        this.allPostCommentsDisplayData = resp;
     });
   }
@@ -112,7 +127,7 @@ export class PostsComponent implements OnInit {
   updatePostViews(){
     var headers = new HttpHeaders();
     headers.append('content-Type', 'application/json');
-    this.http.put('http://3.109.163.108:3000/api/updatePostViews/'+this.postId, {headers: headers}).subscribe( (resp: any) =>{
+    this.http.put('https://www.vishwanandini.com/api/updatePostViews/'+this.postId, {headers: headers}).subscribe( (resp: any) =>{
     });
   }
 

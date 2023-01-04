@@ -11,7 +11,8 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class HomeComponent implements OnInit {
 
-  public displayLanguage = 'KANNADA';
+  //public displayLanguage = 'KANNADA';
+  public displayLanguage : any;
   public topicsData: any;
   public topicIconImagePathUrl: any ;
 
@@ -22,13 +23,31 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+     this.getSelectedLanguages();
      this.getImageIconPath();
-     sessionStorage.setItem('ProductName', 'Mobile');
-     sessionStorage.setItem('userLanguageSelected', 'KANNADA');
+     //sessionStorage.setItem('userLanguageSelected', 'KANNADA');
+  }
+
+  getSelectedLanguages(){
+    //this.displayLanguage = 'KANNADA';
+    let lang = sessionStorage.getItem('userLanguageSelected');
+    if(lang == 'KANNADA'){
+      this.displayLanguage = 'KANNADA';
+    } else if(lang == 'ENGLISH'){
+      this.displayLanguage = 'ENGLISH';
+    } else if(lang == 'TELUGU'){
+      this.displayLanguage = 'TELUGU';
+    } else if(lang == 'TAMIL'){
+      this.displayLanguage = 'TAMIL';
+    } else if(lang == 'HINDI'){
+      this.displayLanguage = 'HINDI';
+    } else {
+      this.displayLanguage = 'KANNADA';
+    }
   }
 
   getImageIconPath(){
-    this.http.get('http://3.109.163.108:3000/api/topicsImageViewIconPath').subscribe( (resp: any) =>{
+    this.http.get('https://www.vishwanandini.com/api/topicsImageViewIconPath').subscribe( (resp: any) =>{
       this.topicIconImagePathUrl = resp;
       if(this.topicIconImagePathUrl == '' || this.topicIconImagePathUrl == null || this.topicIconImagePathUrl == undefined){
         this.getImageIconPath();
@@ -41,15 +60,13 @@ export class HomeComponent implements OnInit {
   getAllBlogs(){
     this.ngxLoader.start();
     var ProductName = sessionStorage.getItem('ProductName');
-    //console.log("local session ---"+ProductName);
     let a = this.topicIconImagePathUrl.path;
-    this.http.get('http://3.109.163.108:3000/api/getAllPublishedTopicsAPI').subscribe( (resp: any) =>{
+    this.http.get('https://www.vishwanandini.com/api/getAllPublishedTopicsAPI').subscribe( (resp: any) =>{
       resp.forEach(function (value) {
             value.topicIconImagePath = a+'/'+value.topicIconImageName;
        });
        this.topicsData = resp;
        this.ngxLoader.stop();
-      //console.log("HERERERER---"+JSON.stringify(resp));
     });
   }
 
@@ -79,8 +96,6 @@ export class HomeComponent implements OnInit {
   }
 
   goToTopics(val){
-    //alert("here"+val.topicId);
-    //alert(JSON.stringify(val));
     var info = {
                   "tnkannada":val.tnkannada,
                   "tnhindi":val.tnhindi,
@@ -88,13 +103,10 @@ export class HomeComponent implements OnInit {
                   "tntamil":val.tntamil,
                   "tntelugu":val.tntelugu,
                   "tnenglish":val.tnenglish
-
     };
-    //alert(JSON.stringify(info));
     const json = JSON.stringify(info);
     sessionStorage.setItem('TopicInfo', json);
     sessionStorage.setItem('TopicId', val.topicId);
     this.router.navigate(['/topics']);
   }
-
 }
